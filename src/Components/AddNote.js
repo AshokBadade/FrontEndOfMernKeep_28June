@@ -10,18 +10,37 @@ function AddNote({getdata}){
   const [inputValue,setInputValue] = useState({}); 
   const textAreaRef = useRef(null);
   const inputRef = useRef(null);
+  const [title,setTitle] = useState("") ;
+  const [content,setContent] = useState("") ;
 
-  const handleChange = (e)=>{
-        setInputValue({ ...inputValue,  [e.target.name]: e.target.value  })
-        autoResizeTextarea();
+
+
+  // const handleChange = (e)=>{
+  //       setInputValue({ ...inputValue,  [e.target.name]: e.target.value  })
+  //       if(e.target.name="title"){ setTitle(e.target.value) }
+  //       else{ setContent(e.target.value) ;}
+  //       autoResizeTextarea();
+  //    }
+
+     const handleChangeTitle = (e)=>{
+       setInputValue({ ...inputValue,  [e.target.name]: e.target.value  })
+        setTitle(e.target.value)
      }
+
+     const handleChangeContent = (e)=>{
+      setInputValue({ ...inputValue,  [e.target.name]: e.target.value  })
+      setContent(e.target.value) ;
+      autoResizeTextarea(); 
+   }
     
    
         
   const handleSubmit = (e)=>{
     e.preventDefault();
-    console.log(inputValue);
+    console.log(inputValue)
     adddata()
+    setTitle("");
+    setContent("") ;
   }
     
     const adddata = async() => {
@@ -44,13 +63,13 @@ function AddNote({getdata}){
     <center>
        <div className="divaddnote">
         
-         <input type="text" className="addtitle" placeholder="title"  onChange={handleChange} name="title" 
-          ref={inputRef}></input>
+         <input type="text" className="addtitle" placeholder="title"  onChange={handleChangeTitle} name="title" 
+          ref={inputRef} value={title}></input>
 
-        <textarea  placeholder="Enter a note"  className="addnote"  onChange={handleChange}  name="content" rows="4"
-          cols="50"  ref={textAreaRef}></textarea>
+        <textarea  placeholder="Enter a note"  className="addnote"  onChange={handleChangeContent}  name="content" rows="4"
+          cols="50"  ref={textAreaRef} value={content} ></textarea>
 
-       <button className="addbtn" onClick={ handleSubmit } >Add note</button>
+       <button className="addbtn" onClick={ handleSubmit }  >Add note</button>
     
        </div>
 

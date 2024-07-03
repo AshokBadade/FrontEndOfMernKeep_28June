@@ -3,7 +3,7 @@ import { MdModeEdit } from "react-icons/md";
 import axios from 'axios';
 import "./Notestyle.css"
 
-function Note({obj,getdata}) {
+function Note({obj, getdata}) {
 
     const deletedata = async () => {
         const response = await  axios.delete("http://localhost:3002/del", { data: { title: obj.title }, headers: { "Authorization": "***" } });

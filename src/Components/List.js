@@ -5,7 +5,7 @@ import './Liststyle.css';
 import AddNote from "./AddNote";
 
 
-function List(){
+function List({query}){
 
     const [Item,setItem] = useState([]); 
 
@@ -16,11 +16,12 @@ function List(){
     const getdata = async () => {
           console.log("hello");
           const response = await axios.get("http://localhost:3002/get");
-          console.log("response  : ", response);
+         // console.log("response  : ", response);
           console.log("response array : ", response.data);
-          console.log("response data : ", response.data[0]);
+         // console.log("response data : ", response.data[0]);
           setItem(response.data);
       }
+
 
 
     return(<>
@@ -29,8 +30,11 @@ function List(){
          </center>
          <div className="ListContainer">
          {  
-            Item.map(
-                (item) => <Note obj={item} getdata={getdata} />
+            Item.filter((item) =>
+                item.title.toLowerCase().includes(query)
+              )
+             .map(
+                (item) => <Note obj={item} getdata={getdata}  />
              )
          }
          </div>
@@ -39,3 +43,5 @@ function List(){
 }
 
 export default List ;
+
+
